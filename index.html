@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineMagic</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #e2f1ff; /* Fond opaque pour mieux voir le texte */
+            color: #000; /* Couleur de texte sombre pour plus de contraste */
+            position: relative;
+        }
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('https://t4.ftcdn.net/jpg/06/89/49/95/360_F_689499531_MeYeI1VVavgYQRzz0S3JxkQ9VxzgYZQh.jpg');
+            background-size: cover;
+            background-position: center;
+            filter: opacity(0.3); /* Ajuster l'opacité de l'image de fond */
+            z-index: -1; /* Mettre l'image en arrière-plan */
+        }
+
+        header {
+            position: relative;
+            padding: 20px;
+            text-align: center;
+            z-index: 1;
+            color: black;
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTK2Hr2Ztj7Uk1414EOnmNniZdzR3ErVZnw9A&s');
+            background-size: cover;
+            background-position: center;
+            filter: opacity(0.25);
+            z-index: -1;
+        }
+
+        header h1 {
+            font-size: 36px;
+            margin: 0;
+        }
+
+        header p {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+
+        nav {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul li {
+            margin: 0 30px;
+            position: relative;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 18px;
+            padding: 10px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        nav ul li a:hover {
+            background-color: #666;
+            color: #fff;
+        }
+
+        nav ul li a i {
+            font-size: 24px;
+            margin-right: 8px;
+        }
+
+        /* Main Content */
+        .intro {
+            padding: 60px 20px;
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+
+        .intro h2 {
+            font-size: 30px;
+            color: #fff;
+        }
+
+        .intro p {
+            font-size: 20px;
+            color: #ccc;
+        }
+
+        /* Section containing the 3 choices */
+        .choices-container {
+            display: flex;
+            justify-content: center;
+            position: relative;
+            padding: 60px;
+        }
+
+        .choices-container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTK2Hr2Ztj7Uk1414EOnmNniZdzR3ErVZnw9A&s');
+            background-size: cover;
+            background-position: center;
+            filter: opacity(0.35);
+            z-index: -1;
+        }
+
+        .choice {
+            width: 250px;
+            height: 450px;
+            background-color: rgba(15, 13, 13, 0.3);
+            margin: 0 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+            text-align: center;
+            padding: 20px;
+            cursor: pointer;
+        }
+
+        .choice:hover {
+            transform: scale(1.05);
+        }
+
+        .choice i {
+            font-size: 40px;
+            color: #fff;
+        }
+
+        .choice img {
+            width: 100%; /* Garantir que l'image occupe 100% du conteneur */
+            height: auto; /* Ajuster la hauteur proportionnellement */
+            border-radius: 10px;
+            object-fit: cover; /* Permet à l'image de couvrir le conteneur sans déformer */
+        }
+
+        .choice h3 {
+            margin-top: 10px;
+            color: #fff;
+        }
+
+        .film-details {
+            padding: 30px;
+            background-color: white;
+            margin: 20px auto;
+            width: 80%;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .film-details img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .film-details h2 {
+            font-size: 28px;
+            margin-top: 20px;
+            color: #333;
+        }
+
+        .film-details p {
+            font-size: 18px;
+            color: #555;
+            line-height: 1.6;
+            text-align: left ;
+        }
+
+        ul {
+            margin: 10px 0;
+            padding-left: 20px;
+            list-style-type: disc; 
+        }
+        li {
+            margin-bottom: 5px;
+            color: #333; /* Assurez-vous que les éléments de la liste soient visibles */
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .choices-container {
+                flex-direction: column;
+            }
+
+            .choice {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header>
+        <h1>Lens To The World</h1>
+        <p>Lets explore sharp vision in movie analysing.</p>
+    </header>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <ul>
+            <li><a href="#our-film"><i class="fas fa-film"></i> 🎥 Our Film: A story in Paris</a></li>
+            <li><a href="#summary of film 1"><i class="fas fa-clipboard-list"></i> 📑 Film 1: Plane</a></li>
+            <li><a href="#summary of film 2"><i class="fas fa-clipboard-list"></i> 📑 Film 2: American psycho</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+
+    <section class="choices-container">
+        <div class="choice" id="our-film" onclick="document.getElementById('film-details-1').scrollIntoView()">
+            <i class="fas fa-file-alt"></i>
+            <h3>Our film</h3>
+            <img src="https://static1.squarespace.com/static/56fac1f407eaa09cd439f086/59a2ac984c0dbf71dd56b901/5aeb1b0c352f537f2ea8d6ea/1527522151950/brotherside-paris-eiffel-tower-1-square.jpg?format=1500w" >
+        </div>
+        <div class="choice" id="summary1" onclick="document.getElementById('film-details-2').scrollIntoView()">
+            <i class="fas fa-file-alt"></i>
+            <h3>Summary Film 1</h3>
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTFLmnKq0d0ar-Ulpo8BGqXVLfSzC5RfYDRQ&s" >
+        </div>
+        <div class="choice" id="summary2" onclick="document.getElementById('film-details-3').scrollIntoView()">
+            <i class="fas fa-file-alt"></i>
+            <h3>Summary Film 2</h3>
+            <img src="https://flore-maquin.com/web/image/2225-1c4423ca/13_AmericanPsycho_FloreMaquin.webp?access_token=420a6c16-4546-4f50-9a90-41b7307ff1c8" >
+        </div>
+    </section>
+
+    <!-- Film 1 Details -->
+    <div id="film-details-1" class="film-details">
+        <h2>Our Film : </h2>
+        <img src="https://static1.squarespace.com/static/56fac1f407eaa09cd439f086/59a2ac984c0dbf71dd56b901/5aeb1b0c352f537f2ea8d6ea/1527522151950/brotherside-paris-eiffel-tower-1-square.jpg?format=1500w" alt="Film Poster">
+        <p>My classmate and I decided to create this website as a way to push our limits and challenge ourselves in two exciting areas: filmmaking and web development. Inspired by the techniques and concepts we explored in the Lens to the World English course, we set out to create a movie that incorporates everything we’ve learned from storytelling and cinematography to editing and sound design. At the same time, we wanted to test our programming skills by building a fully personalized website from scratch to showcase our work. This project is not just a creative endeavor but also an opportunity to combine our technical and artistic abilities, bringing them to life in a meaningful way. By stepping out of our comfort zones, we aim to grow, learn, and demonstrate what we’re capable of achieving through collaboration, determination, and the knowledge gained during the course.</p>
+    </div>
+
+    <!-- Film 1 Details -->
+    <div id="film-details-2" class="film-details">
+        <h2>Film 1 : "Plane" (2023)</h2>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/M25zXBIUVr0?si=yshyKzprGTxtsCcg" 
+            title="Plane Trailer" frameborder="0" allowfullscreen>
+        </iframe>
+        <p><strong>Synopsis:</strong></p>
+        <p>"Plane" is an action-thriller directed by Jean-François Richet. The story follows commercial pilot Brodie Torrance (played by Gerard Butler) who makes an emergency landing on a remote island due to a severe storm. The passengers soon discover they have landed in a war zone controlled by dangerous militias. Torrance teams up with an accused murderer, Louis Gaspare (played by Mike Colter), to protect the passengers and ensure their survival.
+        </p>
+        <p><strong>Main Characters:</strong></p>
+        <ul>
+            <li><strong>Brodie Torrance</strong> (played by Gerard Butler): 
+                A skilled and determined pilot whose leadership and quick thinking are crucial to navigating the crises.</li>
+            <li><strong>Louis Gaspare</strong> (played by Mike Colter): 
+                A mysterious prisoner with a dark past who proves to be an unexpected ally in the fight for survival.</li>
+            <li><strong>Scorpion Militias</strong>: 
+                The antagonists who capture the passengers, setting up the film's high-stakes rescue mission.</li>
+        </ul>
+        <p><strong>Detailed Analysis of Camera Shots:</strong></p>
+        <p>The cinematography in <em>Plane</em> uses dynamic techniques to emphasize the film's intense action and emotional beats. 
+            - **Handheld Shots:** During turbulence and fight scenes, handheld cameras convey chaos and instability, immersing the audience in the action. 
+            - **Close-ups:** Frequent close-ups focus on the emotional stress of Brodie and the passengers, highlighting the stakes in their struggle for survival. 
+            - **Wide Shots:** Aerial and expansive wide shots of the island underscore the isolation and danger, contrasting with the confined space of the plane’s interior. 
+            - **Tracking Shots:** Used in action sequences, such as the firefights, to follow the characters and maintain suspense.
+        </p>
+        <p><strong>Sound Techniques:</strong></p>
+        <p>The sound design enhances the tension and immersive experience:
+            - **Ambient Sounds:** The roar of the storm, the creaking of the plane, and jungle sounds on the island immerse the audience in the environment. 
+            - **Dynamic Score:** Intense, rhythmic music heightens the action sequences, while quieter, suspenseful tones accompany moments of uncertainty. 
+            - **Silence:** Strategic use of silence, particularly after the crash, allows the audience to feel the gravity of the situation and provides contrast to the chaos. 
+            - **Dialogue Mixing:** The clear and balanced mixing ensures that critical exchanges between Torrance and Gaspare are audible even during high-stakes moments.
+        </p>
+        <p>The combination of these elements creates a gripping and immersive narrative, keeping the audience engaged throughout the film.</p>
+    </div>
+    
+
+
+    <!-- Film 2 Details -->
+    <div id="film-details-2" class="film-details">
+        <h2>Film 2 : "American Psycho" (2000)</h2>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/81mibtQWWBg?si=m4J6bGHJwV-4AYwC" 
+                title="American Psycho" frameborder="0" allowfullscreen>
+        </iframe>
+        <p><strong>Synopsis:</strong></p>
+        <p>American psycho is a social and philosophical movie. It is set in 1980s Manhattan showing the world of money, wealth and stockbrokers. It also shed light on excess and consumerism. The main character is Patrick Bateman, a wealthy stockbroker working in wall street. He is more than that because it turns out that he is a serial killer. Patrick suffers from schizophrenia and delusional bursts where he gave birth to his second persona the serial killer in disguise. Besides being one of the most successful bankers, he operates his second life at night by manifesting a violent urge and absolute detachment from moral principles. The movie shows many themes related to materialism and moral emptiness with a shade of darkness and satirical style where the narration takes a blurry line between reality and delusion. At the end of the movie. Patrick Bateman discovers that has been not a serial killer. And all the crime he committed were a delusion burst. He crashes out, and starts a new life full of new hope and new mind-blowing delusions. 
+        </p>
+        <p><strong>Main Characters:</strong></p>
+        <ul>
+            <li><strong>Patrick Bateman:</strong> 
+                The protagonist and unreliable narrator, a wealthy investment banker with a psychopathic double life as a murderer.</li>
+            <li><strong>Evelyn Richards:</strong>
+                Patrick's superficial and self-absorbed girlfriend, embodying the materialism of 1980s Manhattan.</li>
+            <li><strong>Paul Owen:</strong>
+                Patrick's professional rival and one of his victims, central to a key plot point involving his disappearance.</li>
+            <li><strong>Detective Donald Kimball:</strong>
+                Kimball investigates Paul Owen's disappearance. His interactions with Patrick create a tense dynamic, as Patrick tries to maintain a facade of innocence.</li>
+        </ul>
+        <p><strong>Detailed Analysis of Camera Shots:</strong></p>
+        <p>In <em>American Psycho </em> , psychological aspects of cinematography are applied in such a way that they portray the life of a sadistic man and the vanity that encompasses him up to an extent where he thrives. Bateman was a deeply envious man, who had an uncontrolled obsession with business cards. A sense of exceptional importance and uniqueness in the eyes of so called ‘higher’ society drove his spiral into madness which is perfectly illustrated in the scene where Allen breaks a car window. Violence was the only way Bateman knew how to cope with everything around him. The murder of Paul starts off with medium shots, which captures the crime perfectly in all its madness before splattering the viewers with shots of blood on Patrick’s face. Dissecting Patrick is one of the main intrigues of the film as his bewildering self-love is brilliantly conveyed through the numerous depictions of mirrors scattered throughout the film. The mirrors have a dualistic purpose of representing Patrick’s warped self-image while simultaneously allowing the audience to see Patrick without seeing Patrick himself. Body dysmorphia lies at the center of American Psycho as the portrayal of Patrick from a controlling and static camera angle throughout his professional life provides a sense of pathetically in the viewer. A vivid example of this would be American psycho’s final scenes when Patrick is being chased. His mind starts unraveling as he spirals into insanity. This why after everything ends, the impressive first impressions of an American businessman become the last of his worries. The director’s intention behind these various body dysmorphic scenes drenched in chaos is to enthrall the viewers, while providing a deeper understanding of the vanity consumed world that Bateman lived in. rather the audience and the viewers.
+        <p><strong>Sound Techniques:</strong></p>
+        <p>The sound design enhances the tension and immersive experience:
+            The aural component of American Psycho is a significant element of psychopathy and materialism of the film. Music scores and particularly the music of the violence scenes, which include Patrick’s quintessential American 80’s pop and upbeat music, contribute to the understanding of Patrick Bateman as a reality-detached individual who hides his monstrosity under a fashionable shell. Several classic scenes, together with omnipresent coincidences that appear more humor than horror, came in contrast with some more familiar tunes like “Hip to Be Square” of Huey News Lewis and the News played at the center of gruesome terror acts. The Bucks Bauer is remarkable for its apartments sound and emphasizes his sterility which complemented his world more and Patrick needed no more than a sterile environment to sulk. Internal voices were made into full-fledged monologues conveyed by voice a feature commonly associated with self-extended and sociopathic appeals. The relationship. They Work hard for their recognition. A void of silence can equally prevail, only that sorrow tends the most dominant of feelings. In general, sound techniques in conjunction create inconsistencies between a person’s composition and the contradictions that exist in their life and this serves to enhance the assertiveness of the psychological principles exhibited throughout the movie.
+        </p>
+    </div>
+    <!-- Film 3 Details -->
+    <div id="film-details-3" class="film-details">
+        <h2>Our film : "A story in Paris" (2024)</h2>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/4O0dTR7Xbp4?si=dEDZTjfEYnIe_aPy" 
+                title="A story in Paris" frameborder="0" allowfullscreen>
+        </iframe>
+        <p><strong>Synopsis :</strong></p>
+        <p>In <em>A story in Paris </em> Mary is a brilliant student of architecture and lives in Paris. She has always looked up to her late grandfather, an architect of note. His soul searching to make four walls and a roof something special inspired her to follow the same course as her idol. A finalist in the most prestigious national design competition, she faces a difficult exam. Brilliant as she is and serious about it, Mary simply does not know what to do. Days blend into restless nights while her crystal-clear concept smudges with doubt. Frustrated and looking for clarity, Mary walks around the city that has always nurtured her. The streets that she knows so well feel different, weighted down with the burden of her creative block. Her steps lead her to an old workshop, her grandfather's sanctuary a place she hasn't visited since his passing years ago. Inside, the air is thick with dust and memories. She begins to explore, sifting through the blueprints and sketches that once captured his brilliance. As her fingers move over worn wooden surfaces, she chanced upon a small, rusted metal box hidden away in some obscure corner of the room. She opens it to reveal a letter with no other name than "Mary."
+            Her breath caught. Dated 2000, the writing on this letter is so characteristic and so alive her grandfather's hand warm and familiar. As she reads, his words almost transcend time, with advice that feels eerily tailor-made for her present struggles. He speaks of creativity as something that comes along quite smoothly once one embraces imperfection and seeks inspiration from life itself. His reflections remind her to trust her instincts, to see beauty in simplicity, and to build not just with her mind but with her heart.
+            Touched to tears, the spark in Mary reignites. That evening, she leaves the workshop with a new sense of determination. Over the next weeks, she works without rest on her design, imbuing every little detail with the wisdom of her grandfather and the sound of her voice. The result is a work that fuses modernity with timeless elegance; a design that breathes.
+            And on this competition day, her work stands apart. The judges praise its originality and emotional resonance, calling it a masterpiece of form and meaning. They call out Mary's name for the winner, and she is overcome with pride and gratitude. Later, standing beside her finished model, Mary thinks about how everything changed with that letter. It was her grandfather's advice that helped her create something special but also reminded her why she chose this path. It was never just about winning; it was about connection, legacy, and building something that endures.
+        </p> 
+        <p><strong>Main Characters:</strong></p>
+        <ul>
+            <li><strong>Mary the architecture student:</strong> 
+                The protagonist and an amazing person that aims to defy the odds with her ambition and making the impossible possible</li>
+            <li><strong>The omniscient:</strong>
+                A shadowy person that invokes Mary's story and follow closely her difficult journey toward finding the right inspiration and winning the drawing competition.</li>
+            
+        </ul>
+        
+        <p><strong>Camera shot techniques:</strong></p>
+        <ul>
+            <li><strong>1. Crash Zoom (Mary s Lack of Inspiration):</strong> 
+                When the camera suddenly zooms in, it mirrors the overwhelming feeling Mary has as she struggles with her creative block. It's jarring and unexpected, just like the frustration building up inside her. The sharpness of the zoom brings attention to her emotions, making the audience feel her anxiety and mental chaos. It pulls them into her headspace, where everything seems magnified and out of control.</li>
+            <li><strong>2. Speed Burst (Accelerated Time Flow):</strong>
+                The speed burst moves time forward, fast-tracking the moments leading up to the competition. It s as if the world around Mary is speeding up, forcing her to rush. This effect visually communicates how she feels the clock ticking, the pressure mounting. The quick transitions make it clear she s running out of time, and every second counts now more than ever.</li>
+            <li><strong>3. Omniscient View (Close Look and Emotional Fusion)</strong>
+                The omniscient view lets the audience see everything from a broader perspective. Its not just about Mary s actions, but how she feels during those quiet moments. It allows the viewer to connect with her emotions in a more intimate way, almost as though they are inside her head. Watching her from above or from a distance helps fuse her emotional journey with the world around her, giving the film a deeper resonance.</li>
+            <li><strong>4. Centered Shot (Mary Walking Down the Streets)</strong>
+                When Mary walks through the streets of Paris with the camera focused squarely on her, it highlights her isolation in the moment. The city around her seems to fade as the camera keeps her at the center of attention. Its a visual way of showing that, despite the busy world, she is on a path she must walk alone. This shot captures her sense of self-discovery and her struggle to find the way forward.</li>
+            <li><strong>5. Zoom Out and Upper Shot (Fade Out to Close the Film)</strong>
+                As the camera pulls away, it creates a feeling of distance, almost like stepping back to get a clearer picture. The upper shot, combined with the zoom out, elevates the moment. Its like watching Mary from a higher place, symbolizing how far she is come. The view opens up, suggesting that she is ready to face whatever comes next, having gained a new perspective on both herself and her future.</li>
+            
+        </ul>
+        <p><strong>Sound effect techniques:</strong></p>
+        <ul>
+            <li><strong>1. Distant City Sounds (Mary Walking Through Paris)</strong> 
+                The soft hum of Parisian streets murmured voices, distant footsteps, the occasional car wraps around Mary as she walks. These sounds feel distant yet close, reflecting her inner world. As she moves, they gently fade into the background, giving way to the silence that dominates her thoughts. The sounds of life go on, but she is disconnected, caught in her own quiet struggle.</li>
+            <li><strong>2. Rustling Paper (Discovering the Letter)</strong>
+                A soft rustling sound as Mary opens the timeworn letter, the crinkle of the paper delicate yet purposeful. The quiet, almost sacred sound contrasts the chaos that is been building inside her, as though the world pauses just for a moment. Its a subtle cue, signaling the shift from her uncertainty to the spark of inspiration that iss about to ignite.</li>
+            <li><strong>3. Faint Clock Ticking (Passing Time)</strong>
+                A faint clock ticking in the background serves as a constant reminder of the passing moments. Its barely audible at first, but as the deadline approaches, the ticking grows louder, more persistent. The sound keeps time with Mary s frantic pace, adding an auditory layer to her sense of urgency. Its the sound of time slipping through her fingers, and it gets under the audience's skin.</li>
+            <li><strong>4. Soft Wind (Inspiration and Discovery)</strong>
+                As Mary uncovers her grandfather's letter, a light breeze swirls around her, symbolizing the fresh wave of inspiration rushing in. The wind is gentle but carries an almost magical quality, amplifying the moment of revelation. Its calming, yet full of potential, a sound that represents change and the start of something new for Mary.</li>
+            <li><strong>5. Building Sounds (Mary's Design Process)</strong>
+                The sound of pencils scratching paper, the faint tap of her keyboard, the soft murmur of her thoughts. These everyday sounds ground her creative process, capturing her determination and focus. They are layered with soft, rhythmic intensity as her designs take shape, punctuated by the occasional, satisfying click of a model piece fitting into place. Its a sound of creation slow and steady but building toward something powerful.</li>
+            
+        </ul>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; Website presented by BEN-NAJIM Sami & LIAB Meryem - 2024/2025 Lens to the world course All Rights Reserved</p>
+    </footer>
+
+</body>
+</html>
